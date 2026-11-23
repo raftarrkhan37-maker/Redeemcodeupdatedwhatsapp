@@ -788,7 +788,7 @@
     <div class="wa-wrap">
       <a
         class="wa"
-        href="https://whatsapp.com/channel/0029VbDR76ZA2pLF7guwa42D"
+        href="https://whatsapp.com/channel/0029Va8jIf10Qeas0Kf0Jg2p"
         target="_blank"
         rel="noopener noreferrer"
         aria-label="WhatsApp Channel"
@@ -978,12 +978,21 @@
         video.setAttribute("controlsList", "nodownload noremoteplayback");
         video.addEventListener("contextmenu", function (e) { e.preventDefault(); });
 
-        // Pehli video ke end hone ke baad dusri video automatically chalayega
-        let hasSwitched = false;
+        // Smooth cycle: First video → Second video → First video → ...
+        const firstVideoSrc = "https://ultimatetop.in/Redeem%20Code/lv_0_20261009223013.mp4";
+        const secondVideoSrc = "https://ultimatetop.in/Whatapp%20channel%20video/copy_D12390B7-4446-443B-90F5-9C95AFB87558.mov";
+        let isSecondVideo = false;
+
         video.addEventListener("ended", function () {
-          if (hasSwitched) return;
-          hasSwitched = true;
-          video.src = "https://ultimatetop.in/Whatapp%20channel%20video/copy_D12390B7-4446-443B-90F5-9C95AFB87558.mov";
+          if (!isSecondVideo) {
+            // First video finished → switch to second and play
+            isSecondVideo = true;
+            video.src = secondVideoSrc;
+          } else {
+            // Second video finished → switch back to first and play
+            isSecondVideo = false;
+            video.src = firstVideoSrc;
+          }
           video.load();
           video.play().catch(function () {});
         });
